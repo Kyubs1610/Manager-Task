@@ -9,13 +9,15 @@ const prompt = require(`prompt-sync`)();
 
 let tasks = [ "playing video game", "listening to music", "pet the dogs", "trying to understand JS"]
 
-const menu = 
+const menu = () => {
     console.log (`Hello! Welcome to the task Manager:
 1. to see all your tasks
 2. to add a task
 3. to delete a task
 4. to mark a task as done 
 5. to Exit the task manager`)
+
+};
 
 const showtasks = () => {
     console.log(tasks)
@@ -43,26 +45,30 @@ const doneTask = () => {
     tasks[i] = tasks[i] + " [V]"
     console.log(tasks)
 }
+const manager = () => {
+    menu();
 
 rl.question('Enter a number between 1 to 5 ', (menu) => {
     if(menu == 1 ){
         showtasks();
-        rl.close();
+        return manager();
          } 
     if(menu ==2 ){
         console.log(tasks)
         addTask();
-        rl.close();
+        console.log(tasks);
+        return manager();
         }
     if(menu ==3 ){
         console.log(tasks)
         rmvTask();
-        rl.close();
+        console.log(tasks);
+        return manager();
         }
     if(menu ==4 ){
         console.log(tasks)
         doneTask();
-        rl.close();
+        return manager();
     }
     if(menu ==5 ){
         console.log("Ciao Baby")
@@ -71,7 +77,7 @@ rl.question('Enter a number between 1 to 5 ', (menu) => {
     if(menu > 5 || menu <1){
         console.log("You didn't say the magic number!")
         rl.close();
-}})
-;
-
-// I didn't find a way to return to the rl.question for the moment so I left the "rl.close" but if you have an idea let me know plz // 
+    }
+});
+}
+manager ();
